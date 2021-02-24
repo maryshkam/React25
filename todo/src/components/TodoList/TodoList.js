@@ -1,5 +1,6 @@
 import React, { useState, Component } from "react";
 import Form from "../Form/Form";
+import HookForm from "../HookForm/HookForm";
 import Todo from "../Todo/Todo";
 import "./TodoList.css";
 
@@ -54,7 +55,8 @@ class TodoList extends Component {
     return (
       <div className="TodoList">
         <h1 className="TodoList__title">Todo List</h1>
-        <Form addToList={this.addToList} />
+        <HookForm addToList={this.addToList} />
+        {/* <Form addToList={this.addToList} /> */}
         <ul className="TodoList__todos">
           {this.filterTask().map((todo) => (
             <li key={todo.id}>
