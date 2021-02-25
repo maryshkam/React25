@@ -40,7 +40,7 @@ const HookForm = ({addToList}) => {
       id: uuidv4(),
     };
     addToList(singleTask);
-    setForm(initialState);
+    setForm({...initialState});
   }
 
   return (
@@ -75,7 +75,7 @@ const HookForm = ({addToList}) => {
       </label>
 
       <button
-        disabled={!agree}
+        // disabled={!agree}
         className={
           agree ? "NewTodoForm__submit" : "NewTodoForm__submit-inactive"
         }
