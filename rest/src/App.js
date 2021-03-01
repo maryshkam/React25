@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import List from "./Components/Form/List/List";
 import { withCreadentials, request } from "./helpers/request";
+import Form from "./Components/Form/Form/Form";
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -9,7 +11,7 @@ class App extends Component {
     users: [],
     loader: true,
     error: false,
-    text: ''
+    text: "",
   };
 
   // componentDidMount() {
@@ -51,7 +53,7 @@ class App extends Component {
         this.setState({
           error: true,
           loader: false,
-          text: error.message
+          text: error.message,
         });
       });
   }
@@ -59,7 +61,8 @@ class App extends Component {
   render() {
     const { repos, loader, error } = this.state;
     return (
-      <div>
+      <div className="wrapper">
+        <Form />
         <List repos={repos} loader={loader} error={error} />
       </div>
     );
