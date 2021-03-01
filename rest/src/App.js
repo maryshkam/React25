@@ -7,6 +7,9 @@ class App extends Component {
   state = {
     repos: [],
     users: [],
+    loader: true,
+    error: false,
+    text: ''
   };
 
   // componentDidMount() {
@@ -37,18 +40,27 @@ class App extends Component {
     const url = withCreadentials(
       "https://api.github.com/search/repositories?q=react&"
     );
-    request("get", url).then((data) => {
-      this.setState({
-        repos: [...data.items],
+    request("get", url)
+      .then((data) => {
+        this.setState({
+          repos: [...data.items],
+          loader: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error: true,
+          loader: false,
+          text: error.message
+        });
       });
-    });
   }
 
   render() {
-    const { repos } = this.state;
+    const { repos, loader, error } = this.state;
     return (
       <div>
-        <List repos={repos} />
+        <List repos={repos} loader={loader} error={error} />
       </div>
     );
   }
