@@ -1,61 +1,56 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { withCreadentials, request } from "../../../helpers/request";
+
 
 import "./Form.css";
 
-class Form extends Component {
-  state = {
-    search: "",
-    type: "repositories",
-  };
+const Form =({toogleLoader,toogleError,getSearch,getSearchWord,getType,per_page})=> {
+  const [search,setSearch]= useState('');
+  const [type,setType]= useState('repositories')
 
-  handleInput = ({ target }) => {
+  const handleInput = ({ target }) => {
     const { value } = target;
-    this.setState({
-      search: value,
-    });
+    setSearch(
+      value)
   };
 
-  selectHandler = ({ target }) => {
+  const selectHandler = ({ target }) => {
     const { value } = target;
-    this.setState({
-      type: value,
-    });
+    setType(value);
   };
 
-  submitHeandler = async (e) => {
-    const { search, type } = this.state;
+  const submitHeandler = async (e) => {
     e.preventDefault();
 
     const url = withCreadentials(
-      `https://api.github.com/search/${type}?q=${search}&per_page=5&page=2&`
+      `https://api.github.com/search/${type}?q=${search}&per_page=${per_page}&page=1&`
     );
 
     try {
-      this.props.toogleLoader();
+      toogleLoader();
       const result = await request("get", url);
-      console.log(result);
-      await this.props.getSearch(result.items);
+      getSearchWord(search);
+      getType(type);
+      await getSearch(result);
+
     } catch (error) {
-      this.props.toogleError();
+      toogleError();
     } finally {
-      this.props.toogleLoader();
-      this.setState({
-        search: "",
-      });
+      toogleLoader();
+      setSearch('');
+      setType('');
     }
   };
 
-  render() {
     return (
-      <form onSubmit={this.submitHeandler} className="search-form">
+      <form onSubmit={submitHeandler} className="search-form">
         <input
-          onChange={this.handleInput}
+          onChange={handleInput}
           name="search"
           type="text"
-          value={this.state.search}
+          value={search}
         />
-        <select onChange={this.selectHandler} name="type">
+        <select onChange={selectHandler} name="type">
           <option value="repositories">repositories</option>
           <option value="users">users</option>
         </select>
@@ -63,6 +58,6 @@ class Form extends Component {
       </form>
     );
   }
-}
+
 
 export default Form;

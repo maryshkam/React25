@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Loader from "react-loader-spinner";
+import Pagination from "@material-ui/lab/Pagination";
 import { withCreadentials, request } from "../../../helpers/request";
 import ListItem from "../ListItem/ListItem";
 import Form from "../Form/Form";
@@ -11,6 +12,11 @@ class List extends Component {
     loader: false,
     error: false,
     text: "",
+    search: "",
+    type: "",
+    per_page: 10,
+    page: 1,
+    totalItemCount: "",
   };
 
   async componentDidMount() {
@@ -71,9 +77,46 @@ class List extends Component {
     //     });
   }
 
+  async componentDidUpdate(prevProps, prevState) {
+    const { page, per_page, type, search } = this.state;
+    const url = withCreadentials(
+      `https://api.github.com/search/${type}?q=${search}&per_page=${per_page}&page=${page}&`
+    );
+    if (page !== prevState.page) {
+      try {
+        this.toogleLoader();
+        const result = await request("get", url);
+        console.log(result);
+        this.setState({
+          repos: [...result.items],
+        });
+      } catch (error) {
+        this.toogleError();
+        this.setState({
+          text: error.message,
+        });
+      } finally {
+        this.toogleLoader();
+      }
+    }
+  }
+
+  getSearchWord = (search) => {
+    this.setState({
+      search: search,
+    });
+  };
+
+  getType = (type) => {
+    this.setState({
+      type: type,
+    });
+  };
+
   getSearch = (data) => {
     this.setState({
-      repos: [...data],
+      repos: [...data.items],
+      totalItemCount: data.total_count,
     });
   };
 
@@ -87,14 +130,24 @@ class List extends Component {
       error: !this.state.error,
     });
   };
+
+  handleChange = (event, value) => {
+    this.setState({
+      page: value,
+    });
+  };
+
   render() {
-    const { error, loader, repos } = this.state;
+    const { error, loader, repos, per_page, totalItemCount, page } = this.state;
     return (
       <>
         <Form
           getSearch={this.getSearch}
+          getSearchWord={this.getSearchWord}
+          getType={this.getType}
           toogleLoader={this.toogleLoader}
           toogleError={this.toogleError}
+          per_page={per_page}
         />
         <ul className="list">
           {error && <h1>Something went wrong</h1>}
@@ -110,6 +163,14 @@ class List extends Component {
             repos.map((repo) => <ListItem key={repo.id} {...repo} />)
           )}
         </ul>
+        {totalItemCount && (
+          <Pagination
+            count={Math.floor(totalItemCount / per_page)}
+            page={page}
+            onChange={this.handleChange}
+            color="primary"
+          />
+        )}
       </>
     );
   }
