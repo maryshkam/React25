@@ -4,19 +4,13 @@ import { withCreadentials, request } from "../../helpers/request";
 
 import "./Form.css";
 
-const Form =({toogleLoader,toogleError,getSearch,getSearchWord,getType,per_page})=> {
+const Form =({toogleLoader,toogleError,getSearch,getSearchWord,type,per_page})=> {
   const [search,setSearch]= useState('');
-  const [type,setType]= useState('repositories')
 
   const handleInput = ({ target }) => {
     const { value } = target;
     setSearch(
       value)
-  };
-
-  const selectHandler = ({ target }) => {
-    const { value } = target;
-    setType(value);
   };
 
   const submitHeandler = async (e) => {
@@ -30,7 +24,6 @@ const Form =({toogleLoader,toogleError,getSearch,getSearchWord,getType,per_page}
       toogleLoader();
       const result = await request("get", url);
       getSearchWord(search);
-      getType(type);
       await getSearch(result);
 
     } catch (error) {
@@ -38,7 +31,6 @@ const Form =({toogleLoader,toogleError,getSearch,getSearchWord,getType,per_page}
     } finally {
       toogleLoader();
       setSearch('');
-      setType('');
     }
   };
 
