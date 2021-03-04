@@ -50,10 +50,10 @@ const Form =({toogleLoader,toogleError,getSearch,getSearchWord,getType,per_page}
           type="text"
           value={search}
         />
-        <select onChange={selectHandler} name="type">
+        {/* <select onChange={selectHandler} name="type">
           <option value="repositories">repositories</option>
           <option value="users">users</option>
-        </select>
+        </select> */}
         <button type="submit">Search</button>
       </form>
     );
