@@ -8,3 +8,9 @@ export const request = async (method, url, body) => {
   const result =  await axios[method](url,body);
   return result.data
 };
+
+export const createSingleUserUrl = (login)=>{
+  return withCreadentials(`https://api.github.com/users/${login}?`)
+}
+
+

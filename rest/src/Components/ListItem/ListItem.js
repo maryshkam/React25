@@ -7,7 +7,7 @@ const ListItem = ({ avatar_url, login, full_name, owner, type,id }) => {
   // console.log(history);
 
   const goTo =()=> {
-    history.push(`/users/${id}`)
+    history.push(`/users/${login}`)
   }
   return (
 
