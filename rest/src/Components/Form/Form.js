@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useHistory,useLocation,useParams,useRouteMatch} from "react-router-dom";
 import { withCreadentials, request } from "../../helpers/request";
 
 
@@ -6,6 +7,9 @@ import "./Form.css";
 
 const Form =({toogleLoader,toogleError,getSearch,getSearchWord,type,per_page})=> {
   const [search,setSearch]= useState('');
+
+  const history = useHistory();
+  const location = useLocation();
 
   const handleInput = ({ target }) => {
     const { value } = target;
@@ -25,6 +29,9 @@ const Form =({toogleLoader,toogleError,getSearch,getSearchWord,type,per_page})=>
       const result = await request("get", url);
       getSearchWord(search);
       await getSearch(result);
+      console.log(result);
+      history.push({...location,search: `?userName=${search}`,
+    })
 
     } catch (error) {
       toogleError();

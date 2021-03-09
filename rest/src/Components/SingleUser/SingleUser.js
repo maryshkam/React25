@@ -9,20 +9,20 @@ import { request, createSingleUserUrl } from "../../helpers/request";
 
 const SingleUser = () => {
   const [user, setUser] = useState({});
-  console.log(user);
 
   const history = useHistory();
-  console.log(history);
+  
   const location = useLocation();
   const params = useParams();
   const match = useRouteMatch();
-  console.log(location);
-  console.log(params);
-  console.log(match);
+  console.log(history);
+console.log(location);
+console.log(params);
+console.log(match);
+
 
   useEffect(() => {
     const url = createSingleUserUrl(params.login);
-    console.log(url);
     request("get", url)
       .then((user) => setUser(user))
       .catch((error) => console.log(error));

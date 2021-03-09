@@ -14,7 +14,8 @@ const App = () => {
     <>
     <Header />
     <Switch>
-      <Route exact path="/" component={Home}/>
+      {/* <Route exact path="/" component={Home }/> */}
+      <Route exact path="/" render={(props)=><Home {...props} title="Something interesting"/>}/>
       <Route exact path="/users" component={Users}/>
       <Route path="/repos" component={Repos}/>
       <Route path="/users/:login" component={SingleUser}/>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import queryString from "query-string";
 import { withCreadentials, request } from "../../helpers/request";
 import Form from "../../Components/Form/Form";
 
@@ -18,14 +18,14 @@ class Users extends Component {
     totalItemCount: "",
   };
 
-  async componentDidMount() {
+  getUsers = async (search = "react") => {
     const url = withCreadentials(
-      "https://api.github.com/search/users?q=react&"
+      `https://api.github.com/search/users?q=${search}&`
     );
 
     try {
-      this.toogleLoader();
       const result = await request("get", url);
+      this.toogleLoader();
       this.setState({
         users: [...result.items],
       });
@@ -37,6 +37,34 @@ class Users extends Component {
     } finally {
       this.toogleLoader();
     }
+  };
+
+  async componentDidMount() {
+    const { location } = this.props;
+    const params = queryString.parse(location.search);
+    if (Object.keys(params).length) {
+      this.getUsers(params.userName);
+    } else {
+      this.getUsers();
+    }
+    // const url = withCreadentials(
+    //   "https://api.github.com/search/users?q=react&"
+    // );
+
+    // try {
+    //   this.toogleLoader();
+    //   const result = await request("get", url);
+    //   this.setState({
+    //     users: [...result.items],
+    //   });
+    // } catch (error) {
+    //   this.toogleError();
+    //   this.setState({
+    //     text: error.message,
+    //   });
+    // } finally {
+    //   this.toogleLoader();
+    // }
   }
 
   // async componentDidUpdate(prevProps, prevState) {
@@ -92,12 +120,9 @@ class Users extends Component {
       page: value,
     });
   };
-  
 
   render() {
     const { type, per_page, error, loader, users } = this.state;
-    // console.log(this.props);
-    const history = this.props.history;
     return (
       <div>
         <Form
@@ -107,7 +132,7 @@ class Users extends Component {
           getSearch={this.getSearch}
           getSearchWord={this.getSearchWord}
           per_page={per_page}
-          history={history}
+          // history={history}
         />
         {error && <h1>Something went wrong</h1>}
         <List loader={loader} users={users} />
