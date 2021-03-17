@@ -1,5 +1,25 @@
-import { act } from "react-dom/test-utils";
-import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from "../constants/formConstants";
+const ADD_ITEM = "@task/add";
+const DELETE_ITEM = "@task/delete";
+const EDIT_ITEM = "@task/edit";
+
+//actions
+export const addTask = (task) => ({
+  type: ADD_ITEM,
+  payload: task,
+});
+
+
+export const deleteTask =(id)=>({
+  type: DELETE_ITEM,
+  payload: id
+})
+
+export const editTask = (id) =>({
+  type: EDIT_ITEM,
+  payload: id
+})
+
+//reducers
 
 const initialState = [];
 

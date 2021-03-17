@@ -2,7 +2,7 @@ import React from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import TodoItem from "../TodoItem/TodoItem";
 import { inputHeandler, inputClear } from "../../redux/actions/formAction";
-import { addTask } from "../../redux/actions/taskAction";
+import { addTask } from "../../redux/ducks/task";
 import "./TodoList.css";
 
 const TodoList = () => {
@@ -16,9 +16,9 @@ const TodoList = () => {
 
   const submitHeandler = (e) => {
     e.preventDefault();
-    const task = { text: input, id: Date.now() };
+    const task = { text: input, id: Date.now(), status: false };
     dispatch(addTask(task));
-    dispatch(inputClear())
+    dispatch(inputClear());
   };
 
   return (

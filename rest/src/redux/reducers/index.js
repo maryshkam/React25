@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import count from "./counterReducer";
 import input from './formReducer';
-import task from './taskReducer';
+import task from '../ducks/task';
 
 const rootReducer = combineReducers({
   counter: count,

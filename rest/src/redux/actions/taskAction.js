@@ -1,6 +1,17 @@
-import {ADD_ITEM} from '../constants/formConstants'
+import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from "../constants/formConstants";
 
-export const addTask = (task)=>({
+export const addTask = (task) => ({
   type: ADD_ITEM,
-  payload: task
+  payload: task,
+});
+
+
+export const deleteTask =(id)=>({
+  type: DELETE_ITEM,
+  payload: id
+})
+
+export const editTask = (id) =>({
+  type: EDIT_ITEM,
+  payload: id
 })
