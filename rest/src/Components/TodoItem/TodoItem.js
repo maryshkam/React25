@@ -1,6 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteTask, editTask } from "../../redux/ducks/task";
+import {
+  deleteTask,
+  editTask,
+} from "../../redux/toolkit/actions/todoListToolkit";
 
 const TodoItem = ({ text, id, status }) => {
   const dispatch = useDispatch();
