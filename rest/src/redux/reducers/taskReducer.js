@@ -1,5 +1,10 @@
-import { act } from "react-dom/test-utils";
-import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from "../constants/formConstants";
+import {
+  ADD_ITEM,
+  DELETE_ITEM,
+  EDIT_ITEM,
+  SET_TASKS,
+  SET,
+} from "../constants/formConstants";
 
 const initialState = [];
 
@@ -11,8 +16,10 @@ const task = (state = initialState, action) => {
       return state.filter((task) => task.id !== action.payload);
     case EDIT_ITEM:
       return state.map((task) =>
-        task.id === action.payload ? { ...task, status: true } : task
+        task.id === action.payload ? { ...task, status: !task.status } : task
       );
+    case SET_TASKS:
+      return action.payload;
     default:
       return state;
   }

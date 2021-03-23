@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import TodoItem from "../TodoItem/TodoItem";
 import { inputHeandler, inputClear } from "../../redux/actions/formAction";
 import { addTask } from "../../redux/ducks/task";
+import {
+  getTaskOperation,
+  postTaskOperation,
+} from "../../redux/operations/taskOperations";
 import "./TodoList.css";
 
 const TodoList = () => {
   const input = useSelector((state) => state.input);
   const tasks = useSelector((state) => state.task);
+  const loader = useSelector((state) => state.loader);
   const dispatch = useDispatch();
 
   const formDataChange = (e) => {
@@ -16,10 +21,15 @@ const TodoList = () => {
 
   const submitHeandler = (e) => {
     e.preventDefault();
-    const task = { text: input, id: Date.now(), status: false };
-    dispatch(addTask(task));
+    const task = { text: input, status: false };
+    dispatch(postTaskOperation(task));
     dispatch(inputClear());
   };
+
+  useEffect(() => {
+    console.log("some");
+    dispatch(getTaskOperation());
+  }, []);
 
   return (
     <div>
@@ -28,6 +38,7 @@ const TodoList = () => {
         <button>Save</button>
       </form>
       <ul className="list">
+        {loader && <h1>Some fetch going</h1>}
         {tasks.map((el) => (
           <TodoItem key={el.id} {...el} />
         ))}
