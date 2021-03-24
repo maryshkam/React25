@@ -7,11 +7,21 @@ import {
 } from "../../redux/toolkit/actions/inputToolkit";
 import { addTask } from "../../redux/toolkit/actions/todoListToolkit";
 import { changeType } from "../../redux/toolkit/actions/filterType";
+import {
+  taskSelector,
+  taskCountSelector,
+  countCompletedTask,
+  countUncompletedTask,
+} from "../../redux/selectors/taskSelector";
 import "./TodoList.css";
 
 const TodoList = () => {
   const input = useSelector((state) => state.form);
-  const tasks = useSelector((state) => state.tasks);
+  // const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector((state) => taskSelector(state));
+  const taskTotal = useSelector((state) => taskCountSelector(state));
+  const countCompleted = useSelector((state) => countCompletedTask(state));
+  const countUncompleted = useSelector((state) => countUncompletedTask(state));
   const type = useSelector((state) => state.type);
   const dispatch = useDispatch();
 
@@ -56,6 +66,9 @@ const TodoList = () => {
           Uncompleted
         </button>
       </div>
+      <p>Total tasks: {taskTotal}</p>
+      <p>Completsd tasks: {countCompleted}</p>
+      <p>Uncompletsd tasks: {countUncompleted}</p>
       <ul className="list">
         {filterTasks().map((el) => (
           <TodoItem key={el.id} {...el} />
