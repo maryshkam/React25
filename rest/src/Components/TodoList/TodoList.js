@@ -5,8 +5,8 @@ import {
   inputHeandler,
   inputClear,
 } from "../../redux/toolkit/actions/inputToolkit";
-import { addTask } from "../../redux/slice/todoSlice";
-import { changeType } from "../../redux/slice/filterSlice";
+import { addTask } from "../../redux/toolkit/actions/todoListToolkit";
+import { changeType } from "../../redux/toolkit/actions/filterType";
 import "./TodoList.css";
 
 const TodoList = () => {

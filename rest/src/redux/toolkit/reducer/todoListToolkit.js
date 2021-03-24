@@ -1,7 +1,11 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { addTask, deleteTask, editTask } from "../actions/todoListToolkit";
+import {
+  addTask,
+  deleteTask,
+  editTask,
+} from "../../toolkit/actions/todoListToolkit";
 
-const tasks= createReducer([], {
+const tasks = createReducer([], {
   // [addTask]: (state, action) => [...state, action.payload],
   [addTask]: (state, { payload }) => [...state, payload],
   // [addTask]: (state, { payload }) => {
