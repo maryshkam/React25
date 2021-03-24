@@ -4,6 +4,12 @@ import TodoItem from "../TodoItem/TodoItem";
 import { inputHeandler, inputClear } from "../../redux/actions/formAction";
 import { addTask } from "../../redux/ducks/task";
 import {
+  userCountry,
+  userName,
+  userZipCode,
+  userSelector,
+} from "../../redux/selectors/userSelector";
+import {
   getTaskOperation,
   postTaskOperation,
 } from "../../redux/operations/taskOperations";
@@ -14,6 +20,12 @@ const TodoList = () => {
   const tasks = useSelector((state) => state.task);
   const loader = useSelector((state) => state.loader);
   const dispatch = useDispatch();
+
+  // const user = useSelector((state) => state.user);
+  const user = useSelector((state) => userSelector(state));
+  const name = useSelector((state) => userName(state));
+  const country = useSelector((state) => userCountry(state));
+  const zipCode = useSelector((state) => userZipCode(state));
 
   const formDataChange = (e) => {
     dispatch(inputHeandler(e));
@@ -37,6 +49,11 @@ const TodoList = () => {
         <input type="text" value={input} onChange={formDataChange} />
         <button>Save</button>
       </form>
+
+      <p>Name: {name}</p>
+      <p>Country: {country}</p>
+      <p>Zip Index {zipCode}</p>
+
       <ul className="list">
         {loader && <h1>Some fetch going</h1>}
         {tasks.map((el) => (

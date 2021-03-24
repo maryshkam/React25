@@ -4,6 +4,7 @@ import input from "./formReducer";
 import task from "../reducers/taskReducer";
 import loader from "./loaderReducer";
 import error from "./errorReducer";
+import user from "./userReducer";
 
 const rootReducer = combineReducers({
   counter: count,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   task,
   loader,
   error,
+  user,
 });
 
 export default rootReducer;
