@@ -13,3 +13,6 @@ export const LOADER_OFF = "@loader/off";
 
 export const SET_ERROR = "@error/set";
 export const RESET_ERROR = "@error/reset";
+
+export const SET_TOKEN = "@token/set";
+export const RESET_TOKEN = "@token/reset";

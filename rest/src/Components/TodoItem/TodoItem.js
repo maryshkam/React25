@@ -10,14 +10,13 @@ const TodoItem = ({ text, id, status }) => {
   const dispatch = useDispatch();
 
   const deleteItem = () => {
-    dispatch(deleteTaskOperation(id));
+    dispatch(deleteTaskOperation("tasks", id));
     dispatch(deleteTask(id));
   };
 
   const edit = () => {
     const task = { text: text, id: id, status: !status };
     dispatch(editTaskOperation(id, task));
-    
   };
   return (
     <li className={status ? "item item__complete" : "item"}>

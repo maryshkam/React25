@@ -34,14 +34,14 @@ const TodoList = () => {
   const submitHeandler = (e) => {
     e.preventDefault();
     const task = { text: input, status: false };
-    dispatch(postTaskOperation(task));
+    dispatch(postTaskOperation("tasks", task));
     dispatch(inputClear());
   };
 
-  useEffect(() => {
-    console.log("some");
-    dispatch(getTaskOperation());
-  }, []);
+  // useEffect(() => {
+  //   console.log("fffff");
+  //   dispatch(getTaskOperation("tasks"));
+  // }, []);
 
   return (
     <div>
@@ -50,9 +50,9 @@ const TodoList = () => {
         <button>Save</button>
       </form>
 
-      <p>Name: {name}</p>
+      {/* <p>Name: {name}</p>
       <p>Country: {country}</p>
-      <p>Zip Index {zipCode}</p>
+      <p>Zip Index {zipCode}</p> */}
 
       <ul className="list">
         {loader && <h1>Some fetch going</h1>}

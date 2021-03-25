@@ -5,6 +5,7 @@ import task from "../reducers/taskReducer";
 import loader from "./loaderReducer";
 import error from "./errorReducer";
 import user from "./userReducer";
+import token from "./tokenReducer";
 
 const rootReducer = combineReducers({
   counter: count,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   loader,
   error,
   user,
+  token,
 });
 
 export default rootReducer;

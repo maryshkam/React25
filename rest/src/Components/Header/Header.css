@@ -1,0 +1,14 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  background-color: rgba(8, 8, 135, 0.884);
+}
+
+.nav__link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0 40px;
+}
